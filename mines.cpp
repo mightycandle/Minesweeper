@@ -162,7 +162,7 @@ int action(char board[][8], char answer[][8],int mines[][2], int x, int y, int *
 
 //main()
 int main(){
-    
+    cout << "\033[2J\033[1;1H";
     cout<<endl<<"Welcome to Minesweeper."<<endl;
     cout<<"The board contains 64 tiles, and 10 mines."<<endl;
     cout<<"Opening a tile which is not a mine reveals number of neighbouring mines."<<endl;
@@ -199,7 +199,8 @@ int main(){
             if ((loopflag == 0) && (rem == 0)){
                  time(&end);
                  double timetaken=double(end-start);
-                 cout<<"You won in "<<moves<<" moves!"<<endl;
+                 cout<<"You won!"<<endl;
+                 cout<<"You made "<<moves<<" moves."<<endl;
                  int t=(int)timetaken;
                  if(t<60){
                      cout<<"Time taken: "<<t<<" seconds. Noice!"<<endl;
