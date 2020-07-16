@@ -162,6 +162,7 @@ int action(char board[][8], char answer[][8],int mines[][2], int x, int y, int *
 
 //main()
 int main(){
+    cout << "\033[2J\033[1;1H";
     cout<<endl<<"Welcome to Minesweeper."<<endl;
     cout<<"The board contains 64 tiles, and 10 mines."<<endl;
     cout<<"Opening a tile which is not a mine reveals number of neighbouring mines."<<endl;
