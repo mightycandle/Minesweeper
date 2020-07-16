@@ -165,9 +165,8 @@ int main(){
     cout<<endl<<"Welcome to Minesweeper."<<endl;
     cout<<"The board contains 64 tiles, and 10 mines."<<endl;
     cout<<"Opening a tile which is not a mine reveals number of neighbouring mines."<<endl;
-    cout<<"- --> tile not visited"<<endl;
-    cout<<"# --> explored tile with no neighbouring mines"<<endl;
-    cout<<"x --> mine"<<endl;
+    cout<<"- : tile not visited"<<endl<<"# : explored tile with no neighbouring mines"<<endl;
+    cout<<"x : mine"<<endl<<"Input: x y <--> row column"<<endl;
     cout<<"Press ENTER to start"<<endl;
     if(cin.get()=='\n'){
         int loopflag = 0;
@@ -189,7 +188,7 @@ int main(){
             cout<< ("Current board ")<<endl<<endl;
             printboard (board);
             cout<<endl;
-            cout<<"Your move: "<<endl;
+            cout<<"Your move : "<<endl;
             int x,y;
             cin>>x>>y;
             cout<<endl;
