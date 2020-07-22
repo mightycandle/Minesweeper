@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
-//#include<iostream>
-//#include<cstring>
+#include<iostream>
+#include<cstring>
 using namespace std;
 
 //coordinates within 8x8 are valid
@@ -10,6 +10,8 @@ bool valid(int x, int y){
 
 //shows board
 void printboard(char board[][8]){
+    system("clear");
+    cout<< ("Current board ")<<endl<<endl;
     int i, j;
     cout<<"   ";
     for (i=0; i<8; i++)
@@ -23,6 +25,26 @@ void printboard(char board[][8]){
                 cout<< board[i][j]<<" ";
             else
                 cout<<'#'<<" ";
+        cout<<endl;
+    }
+}
+
+void winboard(char board[][8]){
+
+    cout<< ("Current board ")<<endl<<endl;
+    int i, j;
+    cout<<"   ";
+    for (i=0; i<8; i++)
+        cout<<i<<" ";
+    cout<<endl;
+    cout<<"  ----------------"<<endl;
+    for (i=0; i<8; i++){
+        cout<<i<<"| ";
+        for (j=0; j<8; j++)
+            if(board[i][j]!='-')
+                cout<< board[i][j]<<" ";
+            else
+                cout<<'x'<<" ";
         cout<<endl;
     }
 }
@@ -104,16 +126,7 @@ int action(char board[][8], char answer[][8],int mines[][2], int x, int y, int *
     if (board[x][y] != '-')
         return 0;
     int i, j;
-    //if input cell is a mine, you lose
-    if (answer[x][y] == 'x'){
-        for (i=0; i<10; i++)
-            board[mines[i][0]][mines[i][1]]='x';
-        board[x][y]='X';
-        printboard (board);
-        cout<< endl<<"You lost!"<<endl;
-        return 1;
-    }
-    else{
+    if(answer[x][y]!='x'){
         int count = adjcount(x, y, mines, answer);
         (*rem)--;   //reduces remaining available tiles by 1.
         board[x][y] = count + '0';
@@ -156,14 +169,16 @@ int action(char board[][8], char answer[][8],int mines[][2], int x, int y, int *
                     action(board, answer, mines, x+1, y-1, rem);
             }
         }
+        //printboard (board);
         return 0;
     }
+    return 0;
 }
 
 //main()
 int main(){
     system("clear");
-    cout<<endl<<"Welcome to Minesweeper."<<endl;
+    cout<<endl<<"Welcome to Minesweeper"<<endl;
     cout<<"The board contains 64 tiles, and 10 mines."<<endl;
     cout<<"Opening a tile which is not a mine reveals number of neighbouring mines."<<endl;
     cout<<"- : tile not visited"<<endl<<"# : explored tile with no neighbouring mines"<<endl;
@@ -174,7 +189,10 @@ int main(){
         char answer[8][8], board[8][8];
         int rem = 54;
         int x,y;
-        int mines[10][2];
+        int mines[10][2];/*
+        printf("\033[2J");
+		printf("\033[%d;%dH", 0, 0);
+        */
         declare (answer, board);
         placemines (mines, answer);
         int moves = 0;
@@ -186,7 +204,6 @@ int main(){
         time(&start);
         ios_base::sync_with_stdio(false);
         while (loopflag == 0){
-            cout<< ("Current board ")<<endl<<endl;
             printboard (board);
             cout<<endl;
             cout<<"Your move : "<<endl;
@@ -194,23 +211,39 @@ int main(){
             cin>>x>>y;
             cout<<endl;
             moves+=1;
-            loopflag = action (board, answer, mines, x, y, &rem);
-            //you win when tiles left is zero
-            if ((loopflag == 0) && (rem == 0)){
-                 time(&end);
-                 double timetaken=double(end-start);
-                 cout<<"You won!"<<endl;
-                 cout<<"You made "<<moves<<" moves."<<endl;
-                 int t=(int)timetaken;
-                 if(t<60){
-                     cout<<"Time taken: "<<t<<" seconds. Noice!"<<endl;
-                 }
-                 else{
-                     cout<<"Time taken: "<<t/60<<"min "<<t-60*(t/60)<<"sec. Noice!"<<endl;
-                 }
-                 loopflag = 1;
-             }
-        }
-    }
+
+            if (answer[x][y] == 'x'){
+                int i;
+                for (i=0; i<10; i++)
+                    board[mines[i][0]][mines[i][1]]='x';
+                board[x][y]='X';
+                printboard (board);
+                cout<< endl<<"You lost!"<<endl;
+                loopflag=1;
+                break;
+            }
+            else{
+                loopflag = action (board, answer, mines, x, y, &rem);
+            }
+                //you win when tiles left is zero
+                if ((loopflag == 0) && (rem == 0)){
+                     time(&end);
+                     double timetaken=double(end-start);
+                     winboard(board);
+                     cout<<"You won!"<<endl;
+                     cout<<"You made "<<moves<<" moves."<<endl;
+                     int t=(int)timetaken;
+                     if(t<60){
+                         cout<<"Time taken: "<<t<<" seconds. Noice!"<<endl;
+                     }
+                     else{
+                         cout<<"Time taken: "<<t/60<<"min "<<t-60*(t/60)<<"sec. Noice!"<<endl;
+                     }
+                     loopflag = 1;
+                }
+            }
+         }
+
+
     return 0;
 }
