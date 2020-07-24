@@ -41,10 +41,17 @@ void winboard(char board[][8]){
     for (i=0; i<8; i++){
         cout<<i<<"| ";
         for (j=0; j<8; j++)
-            if(board[i][j]!='-')
-                cout<< board[i][j]<<" ";
-            else
+            if(board[i][j]!='-'){
+		if(board[i][j]==0){
+		    cout<<'#'<<" ";
+		}
+		else{
+                    cout<< board[i][j]<<" ";
+		}
+	    }
+            else{
                 cout<<'x'<<" ";
+	    }
         cout<<endl;
     }
 }
