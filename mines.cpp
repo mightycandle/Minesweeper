@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
-#include<iostream>
-#include<cstring>
+//#include<iostream>
+//#include<cstring>
 using namespace std;
 
 //coordinates within 8x8 are valid
