@@ -230,7 +230,7 @@ int main(){
                      time(&end);
                      double timetaken=double(end-start);
                      winboard(board);
-                     cout<<"You won!"<<endl;
+                     cout<<endl<<"You won!"<<endl;
                      cout<<"You made "<<moves<<" moves."<<endl;
                      int t=(int)timetaken;
                      if(t<60){
