@@ -7,7 +7,12 @@ using namespace std;
 bool valid(int x, int y){
     return (x >= 0) && (x < 8) && (y >= 0) && (y < 8);
 }
-
+void printhash(){
+    cout<<"\033[1;35m"<<'#'<<"\033[0m"<<" ";
+}
+void printx(){
+    cout<<"\033[1;31m"<<'x'<<"\033[0m"<<" ";
+}
 //shows board
 void printboard(char board[][8]){
     system("clear");
@@ -20,11 +25,19 @@ void printboard(char board[][8]){
     cout<<"  ----------------"<<endl;
     for (i=0; i<8; i++){
         cout<<i<<"| ";
-        for (j=0; j<8; j++)
-            if(board[i][j]!='0')
+        for (j=0; j<8; j++){
+            if(board[i][j]!='0' && board[i][j]!='x' && board[i][j]!='X' )
                 cout<< board[i][j]<<" ";
-            else
-                cout<<'#'<<" ";
+            if(board[i][j]=='0'){
+                printhash();
+            }
+            if(board[i][j]=='x'){
+                printx();
+            }
+            if(board[i][j]=='X'){
+                cout<<"\033[1;31m"<<'X'<<"\033[0m"<<" ";
+            }
+        }
         cout<<endl;
     }
 }
@@ -42,15 +55,15 @@ void winboard(char board[][8]){
         cout<<i<<"| ";
         for (j=0; j<8; j++)
             if(board[i][j]!='-'){
-		if(board[i][j]==0){
-		    cout<<'#'<<" ";
-		}
-		else{
+		        if(board[i][j]=='0'){
+                    printhash();
+		        }
+		        else{
                     cout<< board[i][j]<<" ";
-		}
-	    }
-            else{
-                cout<<'x'<<" ";
+		        }
+	        }
+        else{
+                printx();
 	    }
         cout<<endl;
     }
